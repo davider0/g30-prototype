@@ -20,18 +20,15 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     let recognition;
     const insets = useSafeAreaInsets();
-    const titulos = [
-        "Formulario con reconocimiento de voz",
-        "Pulsa 'Grabar' para empezar a dictar"
-    ];
     const [valor, onChangeText] = React.useState('Useless Multiline Placeholder');
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = useRef(new SpeechRecognition()).current;
 
     useEffect(() => {
-        const SpeechRecognition =
-            window.SpeechRecognition || window.webkitSpeechRecognition;
+
 
         if (SpeechRecognition) {
-            recognition = new SpeechRecognition();
 
             recognition.continuous = true;
             recognition.interimResults = true;
