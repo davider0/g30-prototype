@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import Constants from "expo-constants";
 import {
     StyleSheet,
@@ -14,13 +14,18 @@ import {
     FlatList
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
+import { GLView } from 'expo-gl';
+import { Renderer } from 'expo-three';
+import { useGLTF, OrbitControls } from '@react-three/drei';
 export function Main() {
     const [str, setStr] = useState("...");
     const [str2, setStr2] = useState("...");
     const [grabando, setGrabando] = useState(false);
     let recognition;
     const insets = useSafeAreaInsets();
-    const [valor, onChangeText] = React.useState('Useless Multiline Placeholder');
+    const [valor, onChangeText] = React.useState('Escribe aquí');
+
     const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = useRef(new SpeechRecognition()).current;
@@ -106,12 +111,51 @@ export function Main() {
                                     {grabando ? "Parar de grabar" : "Grabar"}
                                 </Text>
                             </TouchableOpacity>
+
                         </View>
+                        <Canvas>
+                            <Shader />
+                            <OrbitControls />
+                        </Canvas>
                     </ScrollView>
 
                 </SafeAreaView>
             </View>
         </>
+    );
+}
+
+
+function Shader() {
+    const shaderMaterial = useRef();
+    const time = useRef(0);
+    useFrame(() => {
+        time.current += 0.01;
+        shaderMaterial.current.uniforms.time.value = time.current;
+    });
+
+    return (
+        <mesh>
+            <planeGeometry args={[5, 5]} />
+            <shaderMaterial ref={shaderMaterial} attach="material" args={[{
+                uniforms: { time: { value: 0 } },
+                vertexShader: `
+                    varying vec2 vUv;
+                    void main() {
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform float time;
+                    varying vec2 vUv;
+                    void main() {
+                        vec3 color = 0.5 + 0.5 * cos(time + vUv.xyx + vec3(0, 2, 4));
+                        gl_FragColor = vec4(color, 1.0);
+                    }
+                `
+            }]} />
+        </mesh>
     );
 }
 
