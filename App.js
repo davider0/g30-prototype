@@ -1,11 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { TailwindProvider } from "tailwind-rn";
-import utilities from "./tailwind.json";
-import { useState, useEffect } from "react";
-import "./App.css";
-import clsx from "clsx";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+
 export default function App() {
   const [str, setStr] = useState("...");
   const [str2, setStr2] = useState("...");
@@ -13,15 +9,14 @@ export default function App() {
   let recognition;
 
   useEffect(() => {
-    // Compatibilidad con navegadores
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (SpeechRecognition) {
       recognition = new SpeechRecognition();
 
-      recognition.continuous = true; // Continuar reconociendo, incluso si hay pausas
-      recognition.interimResults = true; // Mostrar resultados parciales
+      recognition.continuous = true;
+      recognition.interimResults = true;
 
       recognition.onresult = (event) => {
         let interimTranscript = "";
@@ -65,26 +60,56 @@ export default function App() {
   };
 
   return (
-      <>
-        <div></div>
-        
-        <h1 className="font-sans hover:text-neutral-50">
-          Reconocimiento de voz
-        </h1>
-        <h2 className="">{"\n" + str}</h2>
-        <h2 className="">Resultado final: {str2}</h2>
-        <div className="card">
-          <button
-            className={clsx({
-              "bg-red-500": grabando === true,
-              "bg-green-500": grabando === false,
-            })}
-            onClick={handleButtonClick}
+    <>
+      <View style={styles.container}>
+        <Text style={styles.text}>Reconocimiento de voz</Text>
+
+        <Text style={styles.text}>{"\n" + str}</Text>
+        <Text style={styles.text}>Resultado final: {str2}</Text>
+        <View style={styles.card}>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              grabando ? styles.buttonRecording : styles.buttonNotRecording,
+            ]}
+            onPress={handleButtonClick}
           >
-            {grabando ? "Parar de grabar" : "Grabar"}
-          </button>
-          <p></p>
-        </div>
-      </>
+            <Text style={styles.buttonText}>
+              {grabando ? "Parar de grabar" : "Grabar"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    color: "#000000", // gray-100 equivalent
+    fontSize: 36, // 6xl equivalent (approximated)
+  },
+  card: {
+    marginTop: 20,
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonRecording: {
+    backgroundColor: "#F56565", // bg-red-500 equivalent
+  },
+  buttonNotRecording: {
+    backgroundColor: "#48BB78", // bg-green-500 equivalent
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
