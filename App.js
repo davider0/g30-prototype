@@ -1,7 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  Pressable,
+} from "react-native";
 export default function App() {
   const [str, setStr] = useState("...");
   const [str2, setStr2] = useState("...");
@@ -62,6 +68,7 @@ export default function App() {
   return (
     <>
       <View style={styles.container}>
+        <StatusBar style="dark"></StatusBar>
         <Text style={styles.text}>Reconocimiento de voz</Text>
 
         <Text style={styles.text}>{"\n" + str}</Text>
