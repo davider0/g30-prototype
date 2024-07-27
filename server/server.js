@@ -13,17 +13,21 @@ app.get("/", async (req, res) => {
 
 const process = spawn("python", ["./process.py"]);
 
+
 // el script de python devolverá la salida en el objeto data
+// devuelve un objeto Readable
 process.stdout.on("data", (data) => {
   console.log(data);
 });
+
+process.kill();
 
 app.post("/", async (req, res) => {
   try {
     const prompt = req.body.prompt;
     const response = await (async () => {}); // completar con una funcion asincrona que se quiera realizar de la api
 
-    res.status(200).send({ api: response.data }); // completar con un objeto parámetro dependiendo de la api
+    res.status(200).send({}); // completar con un objeto parámetro dependiendo de la api
 
     // Esperar antes de hacer la próxima solicitud
     await delay(1000); // Espera 1 segundo
