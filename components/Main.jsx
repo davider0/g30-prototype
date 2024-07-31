@@ -1,40 +1,32 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Constants from "expo-constants";
 import {
     StyleSheet,
     Text,
     View,
     TouchableOpacity,
-    Button,
-    Pressable,
     ScrollView,
     SafeAreaView,
     TextInput,
-    FlatList
+    Image
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import { GLView } from 'expo-gl';
-import { Renderer } from 'expo-three';
-import { useGLTF, OrbitControls } from '@react-three/drei';
+
 export function Main() {
     const [str, setStr] = useState("...");
     const [str2, setStr2] = useState("...");
     const [grabando, setGrabando] = useState(false);
-    let recognition;
     const insets = useSafeAreaInsets();
-    const [valor, onChangeText] = React.useState('Escribe aquí');
+    const [valor, onChangeText] = useState('Escribe aquí');
 
+    let recognition;
     const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = useRef(new SpeechRecognition()).current;
 
     useEffect(() => {
-
-
         if (SpeechRecognition) {
-
             recognition.continuous = true;
             recognition.interimResults = true;
 
@@ -79,17 +71,16 @@ export function Main() {
         });
     };
 
+
     return (
         <>
-            <View style={styles.container}>
-                <SafeAreaView style={{ margin: 12 }}>
-                    <ScrollView>
-
-                        <Text style={styles.text}>Formulario con reconocimiento de voz</Text>
-
-
+            <Text style={styles.titleText}>Formulario con reconocimiento de voz</Text>
+            <ScrollView>
+                <View style={styles.container}>
+                    <SafeAreaView style={{ margin: 12 }}>
                         <Text style={styles.text}>{"\n" + str}</Text>
                         <Text style={styles.text}>Resultado final: {str2}</Text>
+
                         <View style={styles.card}>
                             <TextInput
                                 editable
@@ -98,64 +89,72 @@ export function Main() {
                                 maxLength={400}
                                 onChangeText={text => onChangeText(text)}
                                 value={valor}
-                                style={{ padding: 10, border: "2px solid", "border-radius": "10px", marginBottom: "10px", "border-color": (valor.length == 400 ? "red" : "black") }}
-                            />
-                            <TouchableOpacity
                                 style={[
-                                    styles.button,
-                                    grabando ? styles.buttonRecording : styles.buttonNotRecording,
+                                    styles.input,
+                                    { borderColor: valor.length === 400 ? "red" : "black" },
                                 ]}
-                                onPress={handleButtonClick}
-                            >
-                                <Text style={styles.buttonText}>
-                                    {grabando ? "Parar de grabar" : "Grabar"}
-                                </Text>
-                            </TouchableOpacity>
-
+                            />
+                            <TextInput
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={400}
+                                style={styles.input}
+                            />
+                            <TextInput
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={400}
+                                style={styles.input}
+                            />
+                            <TextInput
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={400}
+                                style={styles.input}
+                            />
+                            <TextInput
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={400}
+                                style={styles.input}
+                            />
+                            <TextInput
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={400}
+                                style={styles.input}
+                            />
+                            <TextInput
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={400}
+                                style={styles.input}
+                            />
                         </View>
-                        <Canvas>
-                            <Shader />
-                            <OrbitControls />
-                        </Canvas>
-                    </ScrollView>
+                    </SafeAreaView>
+                </View>
+            </ScrollView>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={[
+                        styles.button,
+                        grabando ? styles.buttonRecording : styles.buttonNotRecording,
+                    ]}
+                    onPress={handleButtonClick}
+                >
 
-                </SafeAreaView>
+                    <Image source={grabando ? require(`../assets/micro_true.png`) : require(`../assets/micro_false.png`)} resizeMode='contain' style={{
+                        flex: 1,
+                    }} />
+                </TouchableOpacity>
             </View>
         </>
-    );
-}
-
-
-function Shader() {
-    const shaderMaterial = useRef();
-    const time = useRef(0);
-    useFrame(() => {
-        time.current += 0.01;
-        shaderMaterial.current.uniforms.time.value = time.current;
-    });
-
-    return (
-        <mesh>
-            <planeGeometry args={[5, 5]} />
-            <shaderMaterial ref={shaderMaterial} attach="material" args={[{
-                uniforms: { time: { value: 0 } },
-                vertexShader: `
-                    varying vec2 vUv;
-                    void main() {
-                        vUv = uv;
-                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                    }
-                `,
-                fragmentShader: `
-                    uniform float time;
-                    varying vec2 vUv;
-                    void main() {
-                        vec3 color = 0.5 + 0.5 * cos(time + vUv.xyx + vec3(0, 2, 4));
-                        gl_FragColor = vec4(color, 1.0);
-                    }
-                `
-            }]} />
-        </mesh>
     );
 }
 
@@ -164,24 +163,75 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: "#E0E5EC", // Background color for neumorphism
+        paddingTop: Constants.statusBarHeight,
     },
     text: {
-        color: "#000000", // gray-100 equivalent
-        fontSize: 36, // 6xl equivalent (approximated)
+        alignItems: "center",
+        color: "#333", // Text color
+        width: "90%",
+        fontSize: 18, // Text size
         textAlign: "center",
+    },
+    titleText: {
+        marginTop: Constants.statusBarHeight,
+        color: "#333", // Title color
+        fontSize: 24, // Title size
+        textAlign: "center",
+        marginVertical: 20,
+        fontWeight: "bold",
     },
     card: {
         marginTop: 20,
+        width: 400,
+        padding: 20,
+        backgroundColor: "#E0E5EC",
+        borderRadius: 15,
+        shadowOffset: { width: -5, height: -5 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        shadowColor: "white",
+        elevation: 5,
+    },
+    input: {
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 10,
+        marginBottom: 15,
+        backgroundColor: "#fff",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        shadowColor: "black",
+        elevation: 5,
+    },
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 40,
+        marginTop: 40,
     },
     button: {
-        padding: 10,
-        borderRadius: 5,
+        padding: 5,
+        borderRadius: 100,
+        width: 200,
+        height: 200,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        shadowColor: "black",
+        elevation: 5,
+        horizontalAlign: "middle",
     },
     buttonRecording: {
-        backgroundColor: "#F56565", // bg-red-500 equivalent
+        backgroundColor: "#F56565", // Red color
+
     },
     buttonNotRecording: {
-        backgroundColor: "#48BB78", // bg-green-500 equivalent
+        backgroundColor: "#48BB78", // Green color
+
     },
     buttonText: {
         color: "#fff",
