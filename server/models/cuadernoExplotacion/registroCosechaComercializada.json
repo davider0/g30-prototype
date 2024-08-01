@@ -1,0 +1,14 @@
+{
+  "fecha": "2024/1/1",
+  "producto": "",
+  "cantidadDeProducto": "7 kg",
+  "nOrdenParcelasDeOrigen": 124,
+  "nDeAlbaranOFactura": 132,
+  "nLote": 182,
+  "cliente": {
+    "nombreORazonSocial": "Juan Español",
+    "NIF": "12345678A",
+    "direccion": "",
+    "nDeBGSEAA": ""
+  }
+}

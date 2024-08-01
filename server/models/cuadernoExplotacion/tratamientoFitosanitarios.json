@@ -1,0 +1,99 @@
+{
+  "registroActuacionesFitosanitariasParcelas": {
+    "idParcelas": 230,
+    "cultivo": {
+      "especie": "pradero",
+      "variedad": "pradero"
+    },
+    "intervaloFechas": "1/Y",
+    "superficieTratada": 120,
+    "problemaFitosanitario": "paniegas",
+    "aplicador": 1,
+    "equipo": 1,
+    "productoFitosanitario": {
+      "nombreComercial": "Stalone",
+      "nRegistro": 350384,
+      "dosis": 1
+    },
+    "eficacia": "buena",
+    "observaciones": ""
+  },
+  "registroActuacionesFitosanitariasParcelasParaObjetosDeAsesoramiento": {
+    "cultivo": {
+      "especie": "pradero",
+      "variedad": "pradero"
+    },
+    "datosDeLaParcela": {
+      "idParcelas": 230,
+      "superficieCultivada": 120,
+      "superficieTratada": 120
+    },
+    "plagaAControlar": {
+      "plaga": "",
+      "justificacionDeActuacion": "Superacion de umbrales"
+    },
+    "alternativasNoQuimicasDeIntervencion": {
+      "tipoDeMedida": "",
+      "intensidadDeLaMedida": "",
+      "fechaDeActuacion": "2024/1/1"
+    },
+    "alternativasQuimicasDeIntervencion": {
+      "nombreComercial": "",
+      "nDeRegistro": 1122,
+      "dosisUtilizada": "1 kg/ha",
+      "fechaDeActuacion": "2024/1/1"
+    },
+    "eficaciaDeLaIntervencion": "buena",
+    "observaciones": ""
+  },
+  "registroDeUsoDeSemillaTratada": {
+    "aplicaTratamiento": false,
+    "fechaDeSiembra": "2024/1/1",
+    "idParcelas": 0,
+    "cultivo": {
+      "especie": "pradero",
+      "variedad": "pradero"
+    },
+    "superficieSembrada": "10 ha",
+    "cantidadSemilla": "7 kg",
+    "productoFitosanitario": {
+      "materiaActiva": "",
+      "nRegistro": ""
+    }
+  },
+  "registroDeTratamientosPostcosecha": {
+    "aplicaTratamiento": false,
+    "fecha": "2024/1/1",
+    "productoVegetalTratado": "",
+    "problematicaFitosanitaria": "",
+    "cantidadDeProdcutoVegetalTratado": "10 Tm",
+
+    "productoFitosanitario": {
+      "nombreComercial": "",
+      "nRegistro": "",
+      "cantidadUtilizada": "7 kg"
+    }
+  },
+  "registroTratamientoDeLosLocalesDeAlmacenamiento": {
+    "aplicaTratamiento": false,
+    "fecha": "2024/1/1",
+    "localTratado": "tipo y direccion",
+    "problematicaFitosanitaria": "",
+    "volumenTratado": "5 m^3",
+    "producto": {
+      "nombreComercial": "",
+      "nRegistro": "",
+      "cantidadUtilizada": " 7 kg"
+    }
+  },
+  "registroDeTratamientoDeLosMediosDeTransporte": {
+    "vehiculoTratado": "Tractor Scania ABC1234",
+    "problemaFitosanitaria": "",
+    "volumenTratado": "7 m^3",
+    "producto": {
+      "nombreComercial": "",
+      "nRegistro": "",
+      "cantidadUtilizada": " 7 kg"
+    }
+  }
+}

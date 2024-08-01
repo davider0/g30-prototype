@@ -1,0 +1,53 @@
+{
+  "fecha": "2024/1/1",
+  "nombreYApellidos": "Juan Español",
+  "NIF": "12345678A",
+  "nRegistroNacional": "",
+  "nRegistroAutonomico": "",
+  "direccion": "C/ San Francisco nº 2",
+  "localidad": "Oviedo",
+  "cPostal": "33007",
+  "provincia": "Asturias",
+  "telefonoFijo": "912345678",
+  "telefonoMovil": "612345678",
+  "email": "email@ejemplo.com",
+  "titularExplotacion": {
+    "nombreYApellidos": "Juan Español",
+    "NIF": "12345678A",
+    "nRegistroNacional": "",
+    "nRegistroAutonomico": "",
+    "direccion": "C/ San Francisco nº 2",
+    "localidad": "Oviedo",
+    "cPostal": "33007",
+    "provincia": "Asturias",
+    "telefonoFijo": "912345678",
+    "telefonoMovil": "612345678",
+    "email": "email@ejemplo.com"
+  },
+  "personasOEmpresasIntervedorasEnFitosanitarios": {
+    "nOrden": 12832,
+    "nombreApellidosOEmpresa": "Juan Español",
+    "NIF": "12345678A",
+    "nInscripcionROPO": 123456,
+    "tipoCarne": {
+      "basico": false,
+      "cualificado": false,
+      "fumigador": false,
+      "piloto": false
+    },
+    "asesor": ""
+  },
+  "equipoAplicacionFitosanitarios": {
+    "nOrden": 12832,
+    "descripcionEquipo": "",
+    "nInscripcionROMA": 123456,
+    "fechaAdquisicion": "2024/1/1",
+    "fechaUltimaInspeccion": "2024/1/1"
+  },
+  "asesorAlQuePerteneceLaExplotacion": {
+    "nombreORazonSocial": "Juan Español",
+    "NIF": "12345678A",
+    "nIdentificacion": 2138746,
+    "tipoDeExplotacion": ""
+  }
+}

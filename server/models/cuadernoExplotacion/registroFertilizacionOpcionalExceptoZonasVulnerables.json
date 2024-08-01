@@ -1,0 +1,14 @@
+{
+  "intervaloDeFechas": "2024/1/1 - 2024/2/1",
+  "nOrdenDeParcelas": 12342,
+  "cultivo": {
+    "especie": "pradero",
+    "variedad": "pradero"
+  },
+  "tipoDeAbonoOProducto": "",
+  "nDeAlbaran": "",
+  "riquezaNPK": "N/P/K",
+  "dosis": "7 kg/ha",
+  "tipoDeFertilizacion": "",
+  "observaciones": ""
+}

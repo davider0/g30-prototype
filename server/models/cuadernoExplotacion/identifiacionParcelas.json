@@ -1,0 +1,41 @@
+{
+  "datosIdentificativosYAgronomicos": {
+    "nOrden": 12324,
+    "referenciaSIGPAC": {
+      "codigoProvincia": 0,
+      "terminoMunicipal": "codigo,nombre",
+      "codigoAgregado": 0,
+      "nPoligono": 1,
+      "nParcela": 1,
+      "nRecinto": 1,
+      "usoSIGPAC": "",
+      "superficieSIGPAC": 100
+    },
+
+    "datosAgronomicos": {
+      "superficieCultivada": 100,
+      "especie": "",
+      "variedad": "OGM",
+      "secanoRegadio": "secano",
+      "aireLibreOProtegido": "aire libre"
+    },
+    "sistemaAsesoramientoEnInvestigacionDePlagas": ""
+  },
+  "datosIdentificativosMedioambientales": {
+    "idParcelas": 230,
+    "cultivo": {
+      "especie": "pradero",
+      "variedad": "pradero"
+    },
+    "puntosDeCaptacionDeAgua": {
+      "incluidoEnParcela": "NO",
+      "distancia": 30,
+      "coordenadasUTM": "",
+      "denominacion": ""
+    },
+    "parcelasZonasEspecificas": {
+      "totalmente": "SI",
+      "parcialmente": "NO"
+    }
+  }
+}
