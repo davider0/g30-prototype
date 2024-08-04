@@ -1,4 +1,4 @@
-package com.g30prototype
+package com.anonymous.g30prototype
 
 import android.os.Build
 import android.os.Bundle

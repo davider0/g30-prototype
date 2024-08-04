@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-//import dataOutput from './dataOutput.json';
 const app = express();
 const spawn = require("child_process").spawn;
 app.use(cors());
@@ -19,9 +18,7 @@ const process = spawn("python", ["./process.py"]);
 process.stdout.on("data", (data) => {
   console.log(data);
 });
-
 process.kill();
-
 app.post("/", async (req, res) => {
   try {
     const prompt = req.body.prompt;
