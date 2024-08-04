@@ -1,16 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useRef } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform } from "react-native";
 import Constants from "expo-constants";
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    ScrollView,
-    SafeAreaView,
-    TextInput,
-    Image
-} from "react-native";
+import Voice from "@react-native-voice/voice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function Main() {
@@ -26,51 +17,68 @@ export function Main() {
     recognition = useRef(new SpeechRecognition()).current;
 
     useEffect(() => {
-        if (SpeechRecognition) {
-            recognition.continuous = true;
-            recognition.interimResults = true;
-
-            recognition.onresult = (event) => {
-                let interimTranscript = "";
-                let finalTranscript = "";
-
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript;
-                    } else {
-                        interimTranscript += transcript;
-                    }
+        if (Platform.OS === "ios" || Platform.OS === "android") {
+            Voice.onSpeechStart = () => setGrabando(true);
+            Voice.onSpeechEnd = () => setGrabando(false);
+            Voice.onSpeechResults = (event) => {
+                const results = event?.value;
+                if (results.length > 0) {
+                    setStr2(results?.[0]);
+                    setStr(results?.[0]);
                 }
-                setStr2(finalTranscript);
-                setStr(interimTranscript);
             };
-
-            recognition.onerror = (event) => {
+            Voice.onSpeechError = (event) => {
                 console.error("Error en el reconocimiento de voz: ", event.error);
             };
+
+            return () => {
+                Voice.destroy().then(Voice.removeAllListeners);
+            };
         } else {
-            console.error("SpeechRecognition no es compatible con este navegador.");
+            if (SpeechRecognition) {
+                recognition.continuous = true;
+                recognition.interimResults = true;
+
+                recognition.onresult = (event) => {
+                    let interimTranscript = "";
+                    let finalTranscript = "";
+
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript;
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+                    setStr2(finalTranscript);
+                    setStr(interimTranscript);
+                };
+
+                recognition.onerror = (event) => {
+                    console.error("Error en el reconocimiento de voz: ", event.error);
+                };
+            } else {
+                console.error("SpeechRecognition no es compatible con este navegador.");
+            }
+
         }
 
-        return () => {
-            if (recognition) {
-                recognition.stop();
-            }
-        };
     }, []);
 
-    const handleButtonClick = () => {
-        setGrabando((prevGrabando) => {
-            if (!prevGrabando) {
-                recognition.start();
-            } else {
-                recognition.stop();
-            }
-            return !prevGrabando;
-        });
-    };
 
+    const handleButtonClick = async () => {
+        if (!grabando) {
+            if (Platform.OS === "android" || Platform.OS === "ios") {
+                await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
+            } else recognition.start();
+        } else {
+            if (Platform.OS === "android" || Platform.OS === "ios") {
+                await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
+            } else recognition.stop();
+        }
+        return setGrabando(!grabando);
+    };
 
     return (
         <>
@@ -148,7 +156,6 @@ export function Main() {
                     ]}
                     onPress={handleButtonClick}
                 >
-
                     <Image source={grabando ? require(`../assets/micro_true.png`) : require(`../assets/micro_false.png`)} resizeMode='contain' style={{
                         flex: 1,
                     }} />

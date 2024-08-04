@@ -1,4 +1,4 @@
-package com.g30prototype
+package com.anonymous.g30prototype
 
 import android.app.Application
 import android.content.res.Configuration

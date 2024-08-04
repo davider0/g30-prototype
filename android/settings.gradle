@@ -1,4 +1,4 @@
-rootProject.name = 'g30prototype'
+rootProject.name = 'g30-prototype'
 
 dependencyResolutionManagement {
   versionCatalogs {
