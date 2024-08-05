@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Voice from "@react-native-voice/voice";
 import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
 import RenderJson from "./RenderJson";
-
+import CuadernoButtons from "./CuadernoButtons";
 export function Main() {
     const [str, setStr] = useState("...");
     const [str2, setStr2] = useState("...");
@@ -90,6 +91,7 @@ export function Main() {
             <ScrollView>
                 <View style={styles.container}>
                     <SafeAreaView style={{ margin: 12 }}>
+                        <CuadernoButtons></CuadernoButtons>
                         <Text style={styles.text}>{"\n" + str}</Text>
                         <Text style={styles.text}>Resultado final: {str2}</Text>
 
