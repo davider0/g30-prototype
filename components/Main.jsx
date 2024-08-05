@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform } from "react-native";
 import Constants from "expo-constants";
-import Voice from "@react-native-voice/voice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+//import Voice from "@react-native-voice/voice";
+import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
+import RenderJson from "./RenderJson";
+import CuadernoButtons from "./CuadernoButtons";
 export function Main() {
     const [str, setStr] = useState("...");
     const [str2, setStr2] = useState("...");
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
-
-    let recognition;
-    const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = useRef(new SpeechRecognition()).current;
-
-    useEffect(() => {
+    /*
+    
+        let recognition;
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = useRef(new SpeechRecognition()).current;
+    */
+    useEffect(() => {/*
         if (Platform.OS === "ios" || Platform.OS === "android") {
             Voice.onSpeechStart = () => setGrabando(true);
             Voice.onSpeechEnd = () => setGrabando(false);
@@ -64,86 +67,37 @@ export function Main() {
 
         }
 
-    }, []);
+    */}, []);
 
 
     const handleButtonClick = async () => {
-        if (!grabando) {
+        if (!grabando) {/*
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
             } else recognition.start();
-        } else {
+        */} else {/*
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }
+        */}
         return setGrabando(!grabando);
     };
 
+
+
     return (
         <>
-            <Text style={styles.titleText}>Formulario con reconocimiento de voz</Text>
+            <Text style={styles.titleText}>Cuaderno Digital</Text>
             <ScrollView>
                 <View style={styles.container}>
                     <SafeAreaView style={{ margin: 12 }}>
+                        <CuadernoButtons></CuadernoButtons>
                         <Text style={styles.text}>{"\n" + str}</Text>
                         <Text style={styles.text}>Resultado final: {str2}</Text>
 
                         <View style={styles.card}>
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                onChangeText={text => onChangeText(text)}
-                                value={valor}
-                                style={[
-                                    styles.input,
-                                    { borderColor: valor.length === 400 ? "red" : "black" },
-                                ]}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
+
+                            <RenderJson jsonData={JSONcode} />
                         </View>
                     </SafeAreaView>
                 </View>
@@ -174,14 +128,12 @@ const styles = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
     },
     text: {
-        alignItems: "center",
         color: "#333", // Text color
-        width: "90%",
         fontSize: 18, // Text size
         textAlign: "center",
     },
     titleText: {
-        marginTop: Constants.statusBarHeight,
+        marginTop: Platform.OS === 'ios' ? Constants.statusBarHeight : 20,
         color: "#333", // Title color
         fontSize: 24, // Title size
         textAlign: "center",
@@ -200,23 +152,11 @@ const styles = StyleSheet.create({
         shadowColor: "white",
         elevation: 10,
     },
-    input: {
-        padding: 15,
-        borderWidth: 1,
-        borderRadius: 10,
-        marginBottom: 15,
-        backgroundColor: "#E0E5EC",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.2,
-        shadowRadius: 15,
-        shadowColor: "black",
-        elevation: 10,
-    },
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 40,
-        marginTop: 40,
+        marginBottom: 35,
+        marginTop: 30,
     },
     button: {
         padding: 5,
