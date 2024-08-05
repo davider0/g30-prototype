@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform } from "react-native";
 import Constants from "expo-constants";
-import Voice from "@react-native-voice/voice";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
+import RenderJson from "./RenderJson";
 
 export function Main() {
     const [str, setStr] = useState("...");
@@ -10,6 +11,7 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
+
 
     let recognition;
     const SpeechRecognition =
@@ -80,6 +82,8 @@ export function Main() {
         return setGrabando(!grabando);
     };
 
+
+
     return (
         <>
             <Text style={styles.titleText}>Formulario con reconocimiento de voz</Text>
@@ -90,60 +94,8 @@ export function Main() {
                         <Text style={styles.text}>Resultado final: {str2}</Text>
 
                         <View style={styles.card}>
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                onChangeText={text => onChangeText(text)}
-                                value={valor}
-                                style={[
-                                    styles.input,
-                                    { borderColor: valor.length === 400 ? "red" : "black" },
-                                ]}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
-                            <TextInput
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={400}
-                                style={styles.input}
-                            />
+
+                            <RenderJson jsonData={JSONcode} />
                         </View>
                     </SafeAreaView>
                 </View>
@@ -174,9 +126,7 @@ const styles = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
     },
     text: {
-        alignItems: "center",
         color: "#333", // Text color
-        width: "90%",
         fontSize: 18, // Text size
         textAlign: "center",
     },
