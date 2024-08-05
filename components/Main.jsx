@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Voice from "@react-native-voice/voice";
+//import Voice from "@react-native-voice/voice";
 import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
@@ -12,14 +12,14 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
-
-
-    let recognition;
-    const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = useRef(new SpeechRecognition()).current;
-
-    useEffect(() => {
+    /*
+    
+        let recognition;
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = useRef(new SpeechRecognition()).current;
+    */
+    useEffect(() => {/*
         if (Platform.OS === "ios" || Platform.OS === "android") {
             Voice.onSpeechStart = () => setGrabando(true);
             Voice.onSpeechEnd = () => setGrabando(false);
@@ -67,19 +67,19 @@ export function Main() {
 
         }
 
-    }, []);
+    */}, []);
 
 
     const handleButtonClick = async () => {
-        if (!grabando) {
+        if (!grabando) {/*
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
             } else recognition.start();
-        } else {
+        */} else {/*
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }
+        */}
         return setGrabando(!grabando);
     };
 
@@ -150,18 +150,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 15,
         shadowColor: "white",
-        elevation: 10,
-    },
-    input: {
-        padding: 15,
-        borderWidth: 1,
-        borderRadius: 10,
-        marginBottom: 15,
-        backgroundColor: "#E0E5EC",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.2,
-        shadowRadius: 15,
-        shadowColor: "black",
         elevation: 10,
     },
     buttonContainer: {
