@@ -87,7 +87,7 @@ export function Main() {
 
     return (
         <>
-            <Text style={styles.titleText}>Formulario con reconocimiento de voz</Text>
+            <Text style={styles.titleText}>Cuaderno Digital</Text>
             <ScrollView>
                 <View style={styles.container}>
                     <SafeAreaView style={{ margin: 12 }}>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     titleText: {
-        marginTop: Constants.statusBarHeight,
+        marginTop: Platform.OS === 'ios' ? Constants.statusBarHeight : 20,
         color: "#333", // Title color
         fontSize: 24, // Title size
         textAlign: "center",
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 40,
-        marginTop: 40,
+        marginBottom: 35,
+        marginTop: 30,
     },
     button: {
         padding: 5,

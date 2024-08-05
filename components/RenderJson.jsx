@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
     text: {
         color: "#333", // Text color
-        fontSize: 18, // Text size
+        fontSize: 16, // Text size
         textAlign: "center",
     },
     container: {
