@@ -1,26 +1,66 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 //import Voice from "@react-native-voice/voice";
 import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
+import Voice from "@react-native-voice/voice";
+import Permissions from "expo";
 export function Main() {
     const [str, setStr] = useState("...");
     const [str2, setStr2] = useState("...");
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
-    /*
-    
-        let recognition;
-        const SpeechRecognition =
-            window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = useRef(new SpeechRecognition()).current;
-    */
-    useEffect(() => {/*
+
+
+    let recognition;
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = useRef(new SpeechRecognition()).current;
+
+
+
+
+    useEffect(() => {
+        // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
+        (async () => {
+            if (Platform.OS === "android") {
+                const texto = await Voice.getSpeechRecognitionServices()
+                if (texto.includes("com.google.android.googlequicksearchbox")) {
+                    return (
+                        Alert.alert('Permisos Android', 'No se ha detectado el reconocimiento de voz instalado en tu móvil. Este problema se puede solucionar instalando la aplicación de Google Search App. ¿Desea ir a la tienda para instalarlo?', [
+                            {
+                                text: 'Cancelar',
+                                onPress: () => Alert.alert('No se instalará la aplicación Google'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'Aceptar',
+                                onPress: async () => {
+                                    const condicion = await Linking.canOpenURL("https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&hl=es_419&pli=1")
+                                    if (condicion) {
+                                        Linking.openURL("https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&hl=es_419&pli=1");
+                                    } else {
+                                        Alert.alert("No se pudo abrir la URL. Prueba a reiniciar la aplicación");
+                                    }
+                                },
+                            }
+                        ], {
+                            cancelable: true,
+                            onDismiss: () => Alert.alert('No se instalará la aplicación Google'),
+                        }
+                        )
+
+                    );
+
+                } else return;
+            } else return;
+        });
         if (Platform.OS === "ios" || Platform.OS === "android") {
+
             Voice.onSpeechStart = () => setGrabando(true);
             Voice.onSpeechEnd = () => setGrabando(false);
             Voice.onSpeechResults = (event) => {
@@ -67,19 +107,19 @@ export function Main() {
 
         }
 
-    */}, []);
+    }, []);
 
 
     const handleButtonClick = async () => {
-        if (!grabando) {/*
+        if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
             } else recognition.start();
-        */} else {/*
+        } else {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        */}
+        }
         return setGrabando(!grabando);
     };
 
@@ -88,6 +128,7 @@ export function Main() {
     return (
         <>
             <Text style={styles.titleText}>Cuaderno Digital</Text>
+
             <ScrollView>
                 <View style={styles.container}>
                     <SafeAreaView style={{ margin: 12 }}>
