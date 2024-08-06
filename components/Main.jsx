@@ -21,9 +21,6 @@ export function Main() {
         window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = useRef(new SpeechRecognition()).current;
 
-
-
-
     useEffect(() => {
         // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
         (async () => {
@@ -50,7 +47,7 @@ export function Main() {
                             }
                         ], {
                             cancelable: true,
-                            onDismiss: () => Alert.alert('No se instalará la aplicación Google'),
+                            onDismiss: () => Alert.alert('No se instalará la aplicación de Google'),
                         }
                         )
 
@@ -83,19 +80,27 @@ export function Main() {
                 recognition.interimResults = true;
 
                 recognition.onresult = (event) => {
-                    let interimTranscript = "";
+                    let interimTranscript = "...";
                     let finalTranscript = "";
 
                     for (let i = event.resultIndex; i < event.results.length; i++) {
-                        const transcript = event.results[i][0].transcript;
+
+                        let transcript = event.results[i][0].transcript;
+                        console.log(transcript);
                         if (event.results[i].isFinal) {
+
                             finalTranscript += transcript;
+
+
                         } else {
                             interimTranscript += transcript;
                         }
                     }
-                    setStr2(finalTranscript);
+
+
                     setStr(interimTranscript);
+                    setStr2(finalTranscript);
+
                 };
 
                 recognition.onerror = (event) => {
@@ -122,7 +127,10 @@ export function Main() {
         }
         return setGrabando(!grabando);
     };
+    const handleRemoveWord = async () => {
+        setStr2(str2.substring(0, str2.lastIndexOf(' ')));
 
+    }
 
 
     return (
@@ -132,7 +140,7 @@ export function Main() {
             <ScrollView>
                 <View style={styles.container}>
                     <SafeAreaView style={{ margin: 12 }}>
-                        <CuadernoButtons></CuadernoButtons>
+                        <CuadernoButtons />
                         <Text style={styles.text}>{"\n" + str}</Text>
                         <Text style={styles.text}>Resultado final: {str2}</Text>
 
@@ -152,7 +160,20 @@ export function Main() {
                     onPress={handleButtonClick}
                 >
                     <Image source={grabando ? require(`../assets/micro_true.png`) : require(`../assets/micro_false.png`)} resizeMode='contain' style={{
-                        flex: 1,
+                        width: 190,
+                        height: 190,
+                    }} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[
+                        styles.button2,
+                        { opacity: (grabando ? 0.1 : 1) }]}
+                    onPress={grabando ? () => { } : handleRemoveWord}
+                >
+                    <Image source={require(`../assets/return.png`)} resizeMode='contain' style={{
+
+                        width: 140,
+                        height: 140,
                     }} />
                 </TouchableOpacity>
             </View>
@@ -165,7 +186,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#E0E5EC", // Background color for neumorphism
+        backgroundColor: "#E0F5EC", // Background color for neumorphism
         paddingTop: Constants.statusBarHeight,
     },
     text: {
@@ -198,6 +219,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginBottom: 35,
         marginTop: 30,
+        flexDirection: 'row',
     },
     button: {
         padding: 5,
@@ -212,6 +234,7 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         elevation: 10,
         horizontalAlign: "middle",
+        marginLeft: 100,
     },
     buttonRecording: {
         backgroundColor: "#F56565", // Red color
@@ -226,4 +249,20 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: "center",
     },
+    button2: {
+
+        borderRadius: 100,
+        width: 100,
+        height: 100,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.2,
+        shadowRadius: 15,
+        shadowColor: "black",
+        elevation: 10,
+        horizontalAlign: "middle",
+        backgroundColor: "#FFFFFF",
+        marginLeft: 20,
+    }
 });
