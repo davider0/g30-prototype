@@ -29,7 +29,7 @@ export function Main() {
         (async () => {
             if (Platform.OS === "android") {
                 const texto = await Voice.getSpeechRecognitionServices()
-                if (texto.includes("com.google.android.googlequicksearchbox")) {
+                if (!texto.includes("com.google.android.googlequicksearchbox")) {
                     return (
                         Alert.alert('Permisos Android', 'No se ha detectado el reconocimiento de voz instalado en tu móvil. Este problema se puede solucionar instalando la aplicación de Google Search App. ¿Desea ir a la tienda para instalarlo?', [
                             {
