@@ -37,6 +37,10 @@
 	<array>
 		<string>arm64</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+  	<string>El uso del micrófono es necesario para el reconocimiento de voz</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Pulsa permitir para poder usar el reconocimiento de voz</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
