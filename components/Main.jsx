@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
+import { Appearance, StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-//import Voice from "@react-native-voice/voice";
-import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
+import JSONcode from "../server/models/cuadernoExplotacion/registroCosechaComercializada.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
-import Voice from "@react-native-voice/voice";
+//import Voice from "@react-native-voice/voice";
 import Permissions from "expo";
 export function Main() {
     const [str, setStr] = useState("...");
@@ -14,14 +13,15 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
-
-
-    let recognition;
-    const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = useRef(new SpeechRecognition()).current;
-
+    /*
+    
+        let recognition;
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = useRef(new SpeechRecognition()).current;
+    */
     useEffect(() => {
+
         // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
         (async () => {
             if (Platform.OS === "android") {
@@ -55,7 +55,7 @@ export function Main() {
 
                 } else return;
             } else return;
-        });
+        });/*
         if (Platform.OS === "ios" || Platform.OS === "android") {
 
             Voice.onSpeechStart = () => setGrabando(true);
@@ -112,10 +112,10 @@ export function Main() {
 
         }
 
-    }, []);
+    */}, []);
 
 
-    const handleButtonClick = async () => {
+    const handleButtonClick = async () => {/*
         if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
@@ -124,11 +124,15 @@ export function Main() {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }
+        }*/
         return setGrabando(!grabando);
     };
     const handleRemoveWord = async () => {
         setStr2(str2.substring(0, str2.lastIndexOf(' ')));
+
+    }
+
+    const handleClear = async () => {
 
     }
 
@@ -137,7 +141,7 @@ export function Main() {
         <>
             <Text style={styles.titleText}>Cuaderno Digital</Text>
 
-            <ScrollView>
+            <ScrollView bounces={false}>
                 <View style={styles.container}>
                     <SafeAreaView style={{ margin: 12 }}>
                         <CuadernoButtons />
@@ -151,7 +155,21 @@ export function Main() {
                     </SafeAreaView>
                 </View>
             </ScrollView>
+
             <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={[
+                        styles.button3,
+                        { opacity: (grabando ? 0.1 : 1) }]}
+                    onPress={grabando ? () => { } : handleClear}
+                >
+                    <Image source={require(`../assets/clear.png`)} resizeMode='contain' style={{
+
+                        width: 110,
+                        height: 110,
+                    }} />
+                </TouchableOpacity>
+
                 <TouchableOpacity
                     style={[
                         styles.button,
@@ -172,10 +190,11 @@ export function Main() {
                 >
                     <Image source={require(`../assets/return.png`)} resizeMode='contain' style={{
 
-                        width: 140,
-                        height: 140,
+                        width: 127,
+                        height: 127,
                     }} />
                 </TouchableOpacity>
+
             </View>
         </>
     );
@@ -218,14 +237,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginBottom: 35,
-        marginTop: 30,
+        marginTop: 15,
         flexDirection: 'row',
     },
     button: {
         padding: 5,
         borderRadius: 100,
-        width: 200,
-        height: 200,
+        width: 160,
+        height: 160,
         alignItems: "center",
         justifyContent: "center",
         shadowOffset: { width: 5, height: 5 },
@@ -234,7 +253,7 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         elevation: 10,
         horizontalAlign: "middle",
-        marginLeft: 100,
+        marginLeft: 10,
     },
     buttonRecording: {
         backgroundColor: "#F56565", // Red color
@@ -252,8 +271,25 @@ const styles = StyleSheet.create({
     button2: {
 
         borderRadius: 100,
-        width: 100,
-        height: 100,
+        width: 90,
+        height: 90,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.2,
+        shadowRadius: 15,
+        shadowColor: "black",
+        elevation: 10,
+        horizontalAlign: "middle",
+        backgroundColor: "#FFFFFF",
+        marginLeft: 10,
+        marginRight: 20,
+    },
+    button3: {
+
+        borderRadius: 100,
+        width: 90,
+        height: 90,
         alignItems: "center",
         justifyContent: "center",
         shadowOffset: { width: 5, height: 5 },
