@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#dff4ff", // Background color for neumorphism
+        backgroundColor: "#a8ffbf", // Background color for neumorphism
         paddingTop: Constants.statusBarHeight,
     },
     text: {
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: 400,
         padding: 20,
-        backgroundColor: "#c7e8ff",
+        backgroundColor: "#bdf0bb",
         borderRadius: 15,
         shadowOffset: { width: -5, height: -5 },
         shadowOpacity: 0.2,
