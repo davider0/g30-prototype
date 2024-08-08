@@ -1,4 +1,4 @@
-// SelectCuaderno.jsx
+// CuadernoButtons.jsx
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
@@ -13,14 +13,20 @@ const CuadernoButtons = () => {
         const jsonFiles = ['file1.json', 'file2.json', 'file3.json']; // Lista de archivos JSON
         setFiles(jsonFiles);
         setSelectedFile(jsonFiles[0]); // Selecciona el primer archivo por defecto
+        CuadernoButtons.selectedFile = jsonFiles[0]; // Establecer el archivo seleccionado por defecto
     }, []);
+
+    const handleValueChange = (itemValue) => {
+        setSelectedFile(itemValue);
+        CuadernoButtons.selectedFile = itemValue; // Actualizar la variable estática
+    };
 
     return (
         <View style={styles.container2}>
             <View style={styles.pickerWrapper}>
                 <Picker
                     selectedValue={selectedFile}
-                    onValueChange={(itemValue) => setSelectedFile(itemValue)}
+                    onValueChange={handleValueChange}
                     style={styles.picker}
                 >
                     {files.map((fileName, index) => (
@@ -32,9 +38,11 @@ const CuadernoButtons = () => {
     );
 };
 
+// Definir la propiedad estática
+CuadernoButtons.selectedFile = null;
+
 const styles = StyleSheet.create({
     container2: {
-
         justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
@@ -54,7 +62,6 @@ const styles = StyleSheet.create({
         elevation: 12,
         justifyContent: 'center',
         marginBottom: 30,
-
     },
     picker: {
         width: '100%',

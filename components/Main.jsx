@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import JSONcode from "../server/models/cuadernoExplotacion/registroCosechaComercializada.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
-//import Voice from "@react-native-voice/voice";
+import Voice from "@react-native-voice/voice";
 import Permissions from "expo";
 export function Main() {
     const [str, setStr] = useState("...");
@@ -13,13 +13,12 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
-    /*
     
-        let recognition;
-        const SpeechRecognition =
-            window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = useRef(new SpeechRecognition()).current;
-    */
+
+    let recognition;
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = useRef(new SpeechRecognition()).current;
     useEffect(() => {
 
         // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
@@ -55,7 +54,7 @@ export function Main() {
 
                 } else return;
             } else return;
-        });/*
+        });
         if (Platform.OS === "ios" || Platform.OS === "android") {
 
             Voice.onSpeechStart = () => setGrabando(true);
@@ -112,10 +111,10 @@ export function Main() {
 
         }
 
-    */}, []);
+    }, []);
 
 
-    const handleButtonClick = async () => {/*
+    const handleButtonClick = async () => {
         if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
@@ -124,7 +123,7 @@ export function Main() {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }*/
+        }
         return setGrabando(!grabando);
     };
     const handleRemoveWord = async () => {
