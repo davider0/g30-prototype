@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Appearance, StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import JSONcode from "../server/models/cuadernoExplotacion/registroCosechaComercializada.json";
+import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
-//import Voice from "@react-native-voice/voice";
+import Voice from "@react-native-voice/voice";
 import Permissions from "expo";
 export function Main() {
     const [str, setStr] = useState("...");
@@ -13,14 +13,14 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
-    /*
-    
-        let recognition;
-        const SpeechRecognition =
-            window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = useRef(new SpeechRecognition()).current;
-    */
+
+    let recognition;
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = useRef(new SpeechRecognition()).current;
+
     useEffect(() => {
+
 
         // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
         (async () => {
@@ -55,7 +55,7 @@ export function Main() {
 
                 } else return;
             } else return;
-        });/*
+        });
         if (Platform.OS === "ios" || Platform.OS === "android") {
 
             Voice.onSpeechStart = () => setGrabando(true);
@@ -112,10 +112,10 @@ export function Main() {
 
         }
 
-    */}, []);
+    }, []);
 
 
-    const handleButtonClick = async () => {/*
+    const handleButtonClick = async () => {
         if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
@@ -124,7 +124,7 @@ export function Main() {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }*/
+        }
         return setGrabando(!grabando);
     };
     const handleRemoveWord = async () => {
@@ -135,8 +135,6 @@ export function Main() {
     const handleClear = async () => {
 
     }
-
-
     return (
         <>
             <Text style={styles.titleText}>Cuaderno Digital</Text>
@@ -178,8 +176,8 @@ export function Main() {
                     onPress={handleButtonClick}
                 >
                     <Image source={grabando ? require(`../assets/micro_true.png`) : require(`../assets/micro_false.png`)} resizeMode='contain' style={{
-                        width: 190,
-                        height: 190,
+                        width: 170,
+                        height: 170,
                     }} />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -205,7 +203,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#E0F5EC", // Background color for neumorphism
+        backgroundColor: "#E8ffbf", // Background color for neumorphism
         paddingTop: Constants.statusBarHeight,
     },
     text: {
@@ -225,7 +223,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: 400,
         padding: 20,
-        backgroundColor: "#E0E5EC",
+        backgroundColor: "#bdf0bb",
         borderRadius: 15,
         shadowOffset: { width: -5, height: -5 },
         shadowOpacity: 0.2,
@@ -243,8 +241,8 @@ const styles = StyleSheet.create({
     button: {
         padding: 5,
         borderRadius: 100,
-        width: 160,
-        height: 160,
+        width: 135,
+        height: 135,
         alignItems: "center",
         justifyContent: "center",
         shadowOffset: { width: 5, height: 5 },
