@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import Constants from "expo-constants";
 
 const RenderJson = ({ jsonData }) => {
+    const [data, setData] = useState(jsonData);
+
+    const handleChange = (text, itemKey) => {
+        const keys = itemKey.split('.');
+        const updatedData = { ...data };
+
+        let temp = updatedData;
+
+        for (let i = 0; i < keys.length - 1; i++) {
+            temp = temp[keys[i]];
+        }
+
+        temp[keys[keys.length - 1]] = text;
+        RenderJson.jsonData = updatedData;
+        setData(updatedData);
+    };
+
     const renderItems = (data, parentKey = '') => {
         return Object.keys(data).map((key) => {
             const itemKey = parentKey ? `${parentKey}.${key}` : key;
@@ -24,7 +41,7 @@ const RenderJson = ({ jsonData }) => {
                             maxLength={400}
                             style={styles.input}
                             value={String(data[key])}
-                            onChangeText={(text) => data[key] = text}
+                            onChangeText={(text) => handleChange(text, itemKey)}
                         />
                     </View>
                 );
@@ -34,14 +51,12 @@ const RenderJson = ({ jsonData }) => {
 
     return (
         <ScrollView>
-            {renderItems(jsonData)}
+            {renderItems(data)}
         </ScrollView>
     );
 };
-
-
+RenderJson.jsonData = null;
 const styles = StyleSheet.create({
-
     text: {
         color: "#333", // Text color
         fontSize: 16, // Text size
@@ -57,7 +72,7 @@ const styles = StyleSheet.create({
     input: {
         padding: 15,
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 4,
         marginBottom: 15,
         backgroundColor: "#f3f6f4",
         shadowOffset: { width: 5, height: 5 },

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Appearance, StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import JSONcode from "../server/models/cuadernoExplotacion/registroCosechaComercializada.json";
+import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
 import Voice from "@react-native-voice/voice";
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#a8ffbf", // Background color for neumorphism
+        backgroundColor: "#E8ffbf", // Background color for neumorphism
         paddingTop: Constants.statusBarHeight,
     },
     text: {
