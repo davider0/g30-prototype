@@ -15,6 +15,7 @@ cd g30-prototype
 npm install -g expo expo-cli metro babel
 ```
 Con esto instalas Expo, el entorno de desarrollo con el que se ha hecho la aplicación y lo que vas a necesitar para instalar la app
+
 6. Una vez estés dentro del fichero del proyecto en el símbolo del sistema instala las dependencias:
 ```bash
 npm install
