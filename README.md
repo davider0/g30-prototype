@@ -3,7 +3,7 @@
 ### Ver la app en ordenador
 
 1. Instala [Node.js](https://nodejs.org/dist/v22.6.0/node-v22.6.0-x64.msi), selecciona la versión v22. Asegúrate de que la versión es esa usando el comando `node -v` en el símbolo del sistema
-2. Instala git
+2. Instala [Git](https://git-scm.com/downloads)
 3. Abre el símbolo del sistema
 4. Pon los siguientes comandos en el símbolo del sistema, uno a la vez:
 ```bash
