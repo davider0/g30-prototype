@@ -10,7 +10,7 @@ const CuadernoButtons = () => {
 
     useEffect(() => {
         // Simular la lectura de archivos desde una carpeta
-        const jsonFiles = ['file1.json', 'file2.json', 'file3.json']; // Lista de archivos JSON
+        const jsonFiles = ['identifiacionParcelas.json', 'informacionGeneral.json']; // Lista de archivos JSON
         setFiles(jsonFiles);
         setSelectedFile(jsonFiles[0]); // Selecciona el primer archivo por defecto
         CuadernoButtons.selectedFile = jsonFiles[0]; // Establecer el archivo seleccionado por defecto

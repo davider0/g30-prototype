@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { lazy, useState, useEffect, useRef } from "react";
 import { Appearance, StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -19,7 +19,9 @@ export function Main() {
         window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = useRef(new SpeechRecognition()).current;
 
+
     useEffect(() => {
+
 
 
         // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
@@ -134,7 +136,11 @@ export function Main() {
 
     const handleClear = async () => {
 
+        RenderJson.clear = true;
+        RenderJson.forceUpdateKey = 1;
+
     }
+
     return (
         <>
             <Text style={styles.titleText}>Cuaderno Digital</Text>
@@ -155,6 +161,7 @@ export function Main() {
             </ScrollView>
 
             <View style={styles.buttonContainer}>
+
                 <TouchableOpacity
                     style={[
                         styles.button3,
@@ -194,6 +201,8 @@ export function Main() {
                 </TouchableOpacity>
 
             </View>
+
+
         </>
     );
 }
