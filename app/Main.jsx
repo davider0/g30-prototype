@@ -13,6 +13,7 @@ export function Main() {
     const [grabando, setGrabando] = useState(false);
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
+    const [forceUpdateKey, setForceUpdateKey] = useState(0);
 
     let recognition;
     const SpeechRecognition =
@@ -136,8 +137,7 @@ export function Main() {
 
     const handleClear = async () => {
 
-        RenderJson.clear = true;
-        RenderJson.forceUpdateKey = 1;
+        setForceUpdateKey(forceUpdateKey + 1);
 
     }
 
@@ -154,7 +154,7 @@ export function Main() {
 
                         <View style={styles.card}>
 
-                            <RenderJson jsonData={JSONcode} />
+                            <RenderJson jsonData={JSONcode} forceUpdateKey={forceUpdateKey} />
                         </View>
                     </SafeAreaView>
                 </View>

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import Constants from "expo-constants";
 
-const RenderJson = ({ jsonData }) => {
+const RenderJson = ({ jsonData, forceUpdateKey }) => {
     const [data, setData] = useState(jsonData);
 
     useEffect(() => {
-        if (RenderJson.clear) {
-            // Vaciar todos los TextInputs
+        if (forceUpdateKey > 0) {
             const emptyData = { ...data };
 
             const clearFields = (obj) => {
@@ -22,14 +21,8 @@ const RenderJson = ({ jsonData }) => {
 
             clearFields(emptyData);
             setData(emptyData);
-
-            // Incrementar forceUpdateKey para forzar re-renderizado
-            RenderJson.forceUpdateKey += 1;
-
-            // Volver a poner clear en false
-            RenderJson.clear = false;
         }
-    }, [RenderJson.clear]); // Escucha cambios en RenderJson.clear
+    }, [forceUpdateKey]); // Escucha cambios en `forceUpdateKey`
 
     const handleChange = (text, itemKey) => {
         const keys = itemKey.split('.');
@@ -42,7 +35,6 @@ const RenderJson = ({ jsonData }) => {
         }
 
         temp[keys[keys.length - 1]] = text;
-        RenderJson.jsonData = updatedData;
         setData(updatedData);
     };
 
@@ -51,7 +43,7 @@ const RenderJson = ({ jsonData }) => {
             const itemKey = parentKey ? `${parentKey}.${key}` : key;
             if (typeof data[key] === 'object' && !Array.isArray(data[key])) {
                 return (
-                    <View key={itemKey} >
+                    <View key={itemKey}>
                         <Text style={styles.text}>{key}</Text>
                         {renderItems(data[key], itemKey)}
                     </View>
@@ -61,7 +53,7 @@ const RenderJson = ({ jsonData }) => {
                     <View key={itemKey}>
                         <Text style={styles.text}>{key}</Text>
                         <TextInput
-                            key={`${itemKey}-${RenderJson.forceUpdateKey}`} // Key para forzar re-renderizado
+                            key={`${itemKey}-${forceUpdateKey}`} // Key para forzar re-renderizado
                             editable
                             multiline
                             numberOfLines={1}
@@ -82,10 +74,6 @@ const RenderJson = ({ jsonData }) => {
         </ScrollView>
     );
 };
-
-RenderJson.jsonData = null;
-RenderJson.clear = false;
-RenderJson.forceUpdateKey = 0; // Inicializar la variable estática
 
 const styles = StyleSheet.create({
     text: {
@@ -113,5 +101,6 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
 });
+
 
 export default RenderJson;
