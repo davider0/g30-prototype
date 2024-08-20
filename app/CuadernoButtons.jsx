@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     pickerWrapper: {
         width: '80%',
         height: 50,
-        backgroundColor: '#E0E5EC',
+        backgroundColor: '#bdf0bb',
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: {

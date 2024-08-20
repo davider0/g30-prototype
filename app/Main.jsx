@@ -2,10 +2,10 @@ import React, { lazy, useState, useEffect, useRef } from "react";
 import { Appearance, StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, TextInput, Image, Platform, Alert, Linking } from "react-native";
 import Constants from "expo-constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import JSONcode from "../server/models/cuadernoExplotacion/informacionGeneral.json";
+import JSONcode from "../server/models/cuadernoExplotacion/tratamientoFitosanitarios.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
-import Voice from "@react-native-voice/voice";
+//import Voice from "@react-native-voice/voice";
 import Permissions from "expo";
 export function Main() {
     const [str, setStr] = useState("...");
@@ -14,13 +14,13 @@ export function Main() {
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
     const [forceUpdateKey, setForceUpdateKey] = useState(0);
-
-    let recognition;
-    const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = useRef(new SpeechRecognition()).current;
-
-
+    /*
+        let recognition;
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = useRef(new SpeechRecognition()).current;
+    
+    */
     useEffect(() => {
 
 
@@ -58,7 +58,7 @@ export function Main() {
 
                 } else return;
             } else return;
-        });
+        });/*
         if (Platform.OS === "ios" || Platform.OS === "android") {
 
             Voice.onSpeechStart = () => setGrabando(true);
@@ -110,15 +110,15 @@ export function Main() {
                     console.error("Error en el reconocimiento de voz: ", event.error);
                 };
             } else {
-                console.error("SpeechRecognition no es compatible con este navegador.");
+                alert("SpeechRecognition no es compatible con este navegador.");
             }
 
-        }
+        }*/
 
     }, []);
 
 
-    const handleButtonClick = async () => {
+    const handleButtonClick = async () => {/*
         if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
@@ -127,7 +127,7 @@ export function Main() {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }
+        }*/
         return setGrabando(!grabando);
     };
     const handleRemoveWord = async () => {
