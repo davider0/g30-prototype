@@ -12,7 +12,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { Main } from "./components/Main";
+import { Main } from "./app/Main";
 export default function App() {
   return (
     <SafeAreaProvider>
