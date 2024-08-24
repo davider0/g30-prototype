@@ -14,17 +14,17 @@ cd g30-prototype
 ```bash
 npm install -g expo expo-cli metro babel
 ```
-Con esto instalas Expo, el entorno de desarrollo con el que se ha hecho la aplicación y lo que vas a necesitar para instalar la app
+Con esto instalas Expo, el entorno de desarrollo con el que se ha hecho la aplicación y lo que vas a necesitar para ver la app
 
 6. Una vez estés dentro del fichero del proyecto en el símbolo del sistema instala las dependencias:
 ```bash
 npm install
 ```
-7. Para ejecutar la aplicación, asegúrate que el símbolo del sistema está dentro de la misma carpeta donde se ubica `index.js` y pon el siguiente comando:
+7. Para ver la aplicación, asegúrate que el símbolo del sistema está dentro de la misma carpeta donde se ubica `index.js` y pon el siguiente comando:
 ```bash
 npx expo start
 ```
-8. Cuando haya completado de cargarse la aplicación pulsa la tecla `W`
+8. Cuando Metro haya completado de cargar la aplicación pulsa la tecla `W`
 
 ### Ver la app en móvil
 1. Descarga una aplicación llamada *Expo Go*
