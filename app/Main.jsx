@@ -14,13 +14,13 @@ export function Main() {
     const insets = useSafeAreaInsets();
     const [valor, onChangeText] = useState('Escribe aquí');
     const [forceUpdateKey, setForceUpdateKey] = useState(0);
-    /*
-        let recognition;
-        const SpeechRecognition =
-            window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = useRef(new SpeechRecognition()).current;
-    
-    */
+
+    let recognition;
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = useRef(new SpeechRecognition()).current;
+
+
     useEffect(() => {
 
 
@@ -58,7 +58,7 @@ export function Main() {
 
                 } else return;
             } else return;
-        });/*
+        });
         if (Platform.OS === "ios" || Platform.OS === "android") {
 
             Voice.onSpeechStart = () => setGrabando(true);
@@ -113,12 +113,12 @@ export function Main() {
                 alert("SpeechRecognition no es compatible con este navegador.");
             }
 
-        }*/
+        }
 
     }, []);
 
 
-    const handleButtonClick = async () => {/*
+    const handleButtonClick = async () => {
         if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.start('es-ES').then(() => console.log("Reconocimiento de voz iniciado")).catch(e => console.error("Error al iniciar el reconocimiento de voz: ", e));
@@ -127,7 +127,7 @@ export function Main() {
             if (Platform.OS === "android" || Platform.OS === "ios") {
                 await Voice.stop().then(() => console.log("Reconocimiento de voz detenido")).catch(e => console.error("Error al detener el reconocimiento de voz: ", e));
             } else recognition.stop();
-        }*/
+        }
         return setGrabando(!grabando);
     };
     const handleRemoveWord = async () => {
@@ -212,18 +212,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#E8ffbf", // Background color for neumorphism
+        backgroundColor: "#E8ffbf", // Color de fondo neumorfista
         paddingTop: Constants.statusBarHeight,
     },
     text: {
-        color: "#333", // Text color
-        fontSize: 18, // Text size
+        color: "#333", // Color del texto
+        fontSize: 18, // Tamaño del texto
         textAlign: "center",
     },
     titleText: {
         marginTop: Platform.OS === 'ios' ? Constants.statusBarHeight : 20,
-        color: "#333", // Title color
-        fontSize: 24, // Title size
+        color: "#333", // Color título
+        fontSize: 24, // Tamaño título
         textAlign: "center",
         marginVertical: 20,
         fontWeight: "bold",
@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
         marginBottom: 35,
         marginTop: 15,
         flexDirection: 'row',
+
     },
     button: {
         padding: 5,
@@ -263,11 +264,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     buttonRecording: {
-        backgroundColor: "#F56565", // Red color
+        backgroundColor: "#F56565", // Rojo
 
     },
     buttonNotRecording: {
-        backgroundColor: "#48BB78", // Green color
+        backgroundColor: "#48BB78", // Verde
 
     },
     buttonText: {

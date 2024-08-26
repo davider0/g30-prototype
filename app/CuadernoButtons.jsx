@@ -10,7 +10,12 @@ const CuadernoButtons = () => {
 
     useEffect(() => {
         // Simular la lectura de archivos desde una carpeta
-        const jsonFiles = ['identifiacionParcelas.json', 'informacionGeneral.json']; // Lista de archivos JSON
+        const jsonFiles = ['identifiacionParcelas.json',
+            'informacionGeneral.json',
+            "registroFertilizacionOpcionalExceptoZonasVulnerables.json",
+            "registroCosechaComercializada.json",
+            "registroFitosanitarios.json",
+            "tratamientoFitosanitarios.json"]; // Lista de archivos JSON
         setFiles(jsonFiles);
         setSelectedFile(jsonFiles[0]); // Selecciona el primer archivo por defecto
         CuadernoButtons.selectedFile = jsonFiles[0]; // Establecer el archivo seleccionado por defecto
@@ -39,7 +44,7 @@ const CuadernoButtons = () => {
 };
 
 // Definir la propiedad estática
-CuadernoButtons.selectedFile = null;
+CuadernoButtons.selectedFile = selectedFile;
 
 const styles = StyleSheet.create({
     container2: {
