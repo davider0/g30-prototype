@@ -5,16 +5,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import JSONcode from "../server/models/cuadernoExplotacion/tratamientoFitosanitarios.json";
 import RenderJson from "./RenderJson";
 import CuadernoButtons from "./CuadernoButtons";
-//import Voice from "@react-native-voice/voice";
+import Voice from "@react-native-voice/voice";
 import Permissions from "expo";
 export function Main() {
-    const [str, setStr] = useState("...");
-    const [str2, setStr2] = useState("...");
-    const [grabando, setGrabando] = useState(false);
-    const insets = useSafeAreaInsets();
-    const [valor, onChangeText] = useState('Escribe aquí');
-    const [forceUpdateKey, setForceUpdateKey] = useState(0);
+    const [str, setStr] = useState("..."); // Almacena el texto provisional del reconocimiento de voz
+    const [str2, setStr2] = useState("..."); // Almacena el texto resultado del reconocimiento de voz   
+    const [grabando, setGrabando] = useState(false); // Alternancia entre si graba el micrófono o no
+    const insets = useSafeAreaInsets(); // Hook que sirve para controlar cómo se mueven los componentes cuando rotas el movil de vertical a horizontal
+    const [forceUpdateKey, setForceUpdateKey] = useState(0); // Variable que se usa para renderizar las cajas de texto
 
+    // Inicialización del reconocimiento de voz en el navegador
     let recognition;
     const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -23,13 +23,11 @@ export function Main() {
 
     useEffect(() => {
 
-
-
-        // funcion para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
+        // Función para comprobar si en Android tiene permisos de voz, en caso contrario, redirige a la tienda para descargar la aplicacion de google
         (async () => {
             if (Platform.OS === "android") {
                 const texto = await Voice.getSpeechRecognitionServices()
-                if (!texto.includes("com.google.android.googlequicksearchbox")) {
+                if (!texto.includes("com.google.android.googlequicksearchbox")) { // Funciona la función igual para string que para string[]?
                     return (
                         Alert.alert('Permisos Android', 'No se ha detectado el reconocimiento de voz instalado en tu móvil. Este problema se puede solucionar instalando la aplicación de Google Search App. ¿Desea ir a la tienda para instalarlo?', [
                             {
@@ -39,7 +37,7 @@ export function Main() {
                             },
                             {
                                 text: 'Aceptar',
-                                onPress: async () => {
+                                onPress: async () => { // Puede el componente Alert ejecutar funciones asíncronas?
                                     const condicion = await Linking.canOpenURL("https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&hl=es_419&pli=1")
                                     if (condicion) {
                                         Linking.openURL("https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&hl=es_419&pli=1");
@@ -59,6 +57,8 @@ export function Main() {
                 } else return;
             } else return;
         });
+
+        // Inicialización de reconocimiento de voz en iOS y Android, junto con la edición de las variables
         if (Platform.OS === "ios" || Platform.OS === "android") {
 
             Voice.onSpeechStart = () => setGrabando(true);
@@ -77,7 +77,8 @@ export function Main() {
             return () => {
                 Voice.destroy().then(Voice.removeAllListeners);
             };
-        } else {
+        } else { // Almacenamiento de los textos resultados del reconocimiento de voz
+
             if (SpeechRecognition) {
                 recognition.continuous = true;
                 recognition.interimResults = true;
@@ -117,7 +118,7 @@ export function Main() {
 
     }, []);
 
-
+    // Función del botón verde (alterna el booleano 'grabando')
     const handleButtonClick = async () => {
         if (!grabando) {
             if (Platform.OS === "android" || Platform.OS === "ios") {
@@ -130,17 +131,21 @@ export function Main() {
         }
         return setGrabando(!grabando);
     };
+
+    // Función del botón azul (quita la última palabra del resultado final)
     const handleRemoveWord = async () => {
         setStr2(str2.substring(0, str2.lastIndexOf(' ')));
 
     }
 
+    // Función del botón morado (quita el texto de todas las textboxes)
     const handleClear = async () => {
 
         setForceUpdateKey(forceUpdateKey + 1);
 
     }
 
+    // jsx
     return (
         <>
             <Text style={styles.titleText}>Cuaderno Digital</Text>
@@ -207,6 +212,7 @@ export function Main() {
     );
 }
 
+// Estilos
 const styles = StyleSheet.create({
     container: {
         flex: 1,
