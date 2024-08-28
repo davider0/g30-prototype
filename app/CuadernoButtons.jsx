@@ -44,7 +44,7 @@ const CuadernoButtons = () => {
 };
 
 // Definir la propiedad estática
-CuadernoButtons.selectedFile = selectedFile;
+CuadernoButtons.selectedFile = null;
 
 const styles = StyleSheet.create({
     container2: {
