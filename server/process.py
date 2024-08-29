@@ -35,8 +35,8 @@ def llenar_json(modelo, entidades):
         return llenar_registro_fitosanitarios(entidades)
     elif modelo == "Informacion general":
         return llenar_informacion_general(entidades)
-    # Añadir funciones para otros modelos
-    # ...
+    #TO DO: añadir mas
+    
 
 def llenar_registro_fitosanitarios(entidades):
     # Diccionario con los campos del JSON
