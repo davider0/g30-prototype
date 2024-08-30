@@ -10,7 +10,12 @@ const CuadernoButtons = () => {
 
     useEffect(() => {
         // Simular la lectura de archivos desde una carpeta
-        const jsonFiles = ['identifiacionParcelas.json', 'informacionGeneral.json']; // Lista de archivos JSON
+        const jsonFiles = ['identifiacionParcelas.json',
+            'informacionGeneral.json',
+            "registroFertilizacionOpcionalExceptoZonasVulnerables.json",
+            "registroCosechaComercializada.json",
+            "registroFitosanitarios.json",
+            "tratamientoFitosanitarios.json"]; // Lista de archivos JSON
         setFiles(jsonFiles);
         setSelectedFile(jsonFiles[0]); // Selecciona el primer archivo por defecto
         CuadernoButtons.selectedFile = jsonFiles[0]; // Establecer el archivo seleccionado por defecto
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
     pickerWrapper: {
         width: '80%',
         height: 50,
-        backgroundColor: '#E0E5EC',
+        backgroundColor: '#bdf0bb',
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: {
