@@ -21,6 +21,7 @@ const RenderJson = ({ jsonData, forceUpdateKey }) => {
 
             clearFields(emptyData);
             setData(emptyData);
+            RenderJson.jsonData = emptyData;
         }
     }, [forceUpdateKey]); // Escucha cambios en `forceUpdateKey`
 
@@ -36,6 +37,7 @@ const RenderJson = ({ jsonData, forceUpdateKey }) => {
 
         temp[keys[keys.length - 1]] = text;
         setData(updatedData);
+        RenderJson.jsonData = updatedData;
     };
 
     const renderItems = (data, parentKey = '') => {
@@ -74,7 +76,7 @@ const RenderJson = ({ jsonData, forceUpdateKey }) => {
         </ScrollView>
     );
 };
-
+RenderJson.jsonData = null;
 const styles = StyleSheet.create({
     text: {
         color: "#333", // Text color
