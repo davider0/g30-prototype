@@ -164,49 +164,58 @@ export function Main() {
                     </SafeAreaView>
                 </View>
             </ScrollView>
+            <View style={{ flexDirection: 'column', alignItems: "center", justifyContent: "center" }}>
+                <View style={styles.buttonContainer}>
 
-            <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={[
+                            styles.button3,
+                            { opacity: (grabando ? 0.1 : 1) }]}
+                        onPress={grabando ? () => { } : handleClear}
+                    >
+                        <Image source={require(`../assets/clear.png`)} resizeMode='contain' style={{
 
+                            width: 110,
+                            height: 110,
+                        }} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[
+                            styles.button,
+                            grabando ? styles.buttonRecording : styles.buttonNotRecording,
+                        ]}
+                        onPress={handleButtonClick}
+                    >
+                        <Image source={grabando ? require(`../assets/micro_true.png`) : require(`../assets/micro_false.png`)} resizeMode='contain' style={{
+                            width: 140,
+                            height: 140,
+                        }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[
+                            styles.button2,
+                            { opacity: (grabando ? 0.1 : 1) }]}
+                        onPress={grabando ? () => { } : handleRemoveWord}
+                    >
+                        <Image source={require(`../assets/return.png`)} resizeMode='contain' style={{
+
+                            width: 127,
+                            height: 127,
+                        }} />
+                    </TouchableOpacity>
+
+                </View>
                 <TouchableOpacity
                     style={[
-                        styles.button3,
-                        { opacity: (grabando ? 0.1 : 1) }]}
-                    onPress={grabando ? () => { } : handleClear}
-                >
-                    <Image source={require(`../assets/clear.png`)} resizeMode='contain' style={{
-
-                        width: 110,
-                        height: 110,
-                    }} />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[
-                        styles.button,
-                        grabando ? styles.buttonRecording : styles.buttonNotRecording,
+                        styles.button4,
+                        { opacity: (grabando ? 0.1 : 1) }
                     ]}
-                    onPress={handleButtonClick}
-                >
-                    <Image source={grabando ? require(`../assets/micro_true.png`) : require(`../assets/micro_false.png`)} resizeMode='contain' style={{
-                        width: 170,
-                        height: 170,
-                    }} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.button2,
-                        { opacity: (grabando ? 0.1 : 1) }]}
                     onPress={grabando ? () => { } : handleRemoveWord}
                 >
-                    <Image source={require(`../assets/return.png`)} resizeMode='contain' style={{
-
-                        width: 127,
-                        height: 127,
-                    }} />
+                    <Text>Botón mágico</Text>
                 </TouchableOpacity>
-
             </View>
-
 
         </>
     );
@@ -249,7 +258,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 35,
+        marginBottom: 15,
         marginTop: 15,
         flexDirection: 'row',
 
@@ -257,8 +266,8 @@ const styles = StyleSheet.create({
     button: {
         padding: 5,
         borderRadius: 100,
-        width: 135,
-        height: 135,
+        width: 115,
+        height: 115,
         alignItems: "center",
         justifyContent: "center",
         shadowOffset: { width: 5, height: 5 },
@@ -314,5 +323,21 @@ const styles = StyleSheet.create({
         horizontalAlign: "middle",
         backgroundColor: "#FFFFFF",
         marginLeft: 20,
+
+    },
+    button4: {
+        padding: 5,
+        borderRadius: 10,
+        width: 215,
+        height: 55,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.2,
+        shadowRadius: 15,
+        shadowColor: "black",
+        horizontalAlign: "middle",
+        borderWidth: 2,
+        backgroundColor: "#48BB78", // Verde
     }
 });
